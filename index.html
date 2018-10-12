@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/FullDayCareCenters_1.js"></script>
+        <script src="data/TypeBProviders_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[39.83134806081956,-83.33842926853517],[40.1565937904221,-82.6340864385428]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var overlay_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0
+        });
+        overlay_OSMStandard_0.addTo(map);
+        map.addLayer(overlay_OSMStandard_0);
+        function pop_FullDayCareCenters_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ObjectID'] !== null ? Autolinker.link(String(feature.properties['ObjectID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Status'] !== null ? Autolinker.link(String(feature.properties['Status'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Score'] !== null ? Autolinker.link(String(feature.properties['Score'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Match_type'] !== null ? Autolinker.link(String(feature.properties['Match_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Match_addr'] !== null ? Autolinker.link(String(feature.properties['Match_addr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Side'] !== null ? Autolinker.link(String(feature.properties['Side'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ref_ID'] !== null ? Autolinker.link(String(feature.properties['Ref_ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['User_fld'] !== null ? Autolinker.link(String(feature.properties['User_fld'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Addr_type'] !== null ? Autolinker.link(String(feature.properties['Addr_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_Street'] !== null ? Autolinker.link(String(feature.properties['ARC_Street'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_City'] !== null ? Autolinker.link(String(feature.properties['ARC_City'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_State'] !== null ? Autolinker.link(String(feature.properties['ARC_State'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_ZIP'] !== null ? Autolinker.link(String(feature.properties['ARC_ZIP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Type_Of_Ca</strong><br />' + (feature.properties['Type_Of_Ca'] !== null ? Autolinker.link(String(feature.properties['Type_Of_Ca'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Business_N</strong><br />' + (feature.properties['Business_N'] !== null ? Autolinker.link(String(feature.properties['Business_N'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Street_Add</strong><br />' + (feature.properties['Street_Add'] !== null ? Autolinker.link(String(feature.properties['Street_Add'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>City</strong><br />' + (feature.properties['City'] !== null ? Autolinker.link(String(feature.properties['City'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>State_Prov</strong><br />' + (feature.properties['State_Prov'] !== null ? Autolinker.link(String(feature.properties['State_Prov'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Zip</strong><br />' + (feature.properties['Zip'] !== null ? Autolinker.link(String(feature.properties['Zip'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Total_Lice</strong><br />' + (feature.properties['Total_Lice'] !== null ? Autolinker.link(String(feature.properties['Total_Lice'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_FullDayCareCenters_1_0(feature) {
+            if (feature.properties['Total_Lice'] >= 0.000000 && feature.properties['Total_Lice'] <= 52.000000 ) {
+                return {
+                pane: 'pane_FullDayCareCenters_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,188,47,1.0)',
+            }
+            }
+            if (feature.properties['Total_Lice'] >= 52.000000 && feature.properties['Total_Lice'] <= 86.000000 ) {
+                return {
+                pane: 'pane_FullDayCareCenters_1',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,188,47,1.0)',
+            }
+            }
+            if (feature.properties['Total_Lice'] >= 86.000000 && feature.properties['Total_Lice'] <= 131.000000 ) {
+                return {
+                pane: 'pane_FullDayCareCenters_1',
+                radius: 12.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,188,47,1.0)',
+            }
+            }
+            if (feature.properties['Total_Lice'] >= 131.000000 && feature.properties['Total_Lice'] <= 214.000000 ) {
+                return {
+                pane: 'pane_FullDayCareCenters_1',
+                radius: 16.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,188,47,1.0)',
+            }
+            }
+            if (feature.properties['Total_Lice'] >= 214.000000 && feature.properties['Total_Lice'] <= 372.000000 ) {
+                return {
+                pane: 'pane_FullDayCareCenters_1',
+                radius: 20.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,188,47,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_FullDayCareCenters_1');
+        map.getPane('pane_FullDayCareCenters_1').style.zIndex = 401;
+        map.getPane('pane_FullDayCareCenters_1').style['mix-blend-mode'] = 'normal';
+        var layer_FullDayCareCenters_1 = new L.geoJson(json_FullDayCareCenters_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_FullDayCareCenters_1',
+            onEachFeature: pop_FullDayCareCenters_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_FullDayCareCenters_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_FullDayCareCenters_1);
+        map.addLayer(layer_FullDayCareCenters_1);
+        function pop_TypeBProviders_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ObjectID'] !== null ? Autolinker.link(String(feature.properties['ObjectID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Status'] !== null ? Autolinker.link(String(feature.properties['Status'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Score'] !== null ? Autolinker.link(String(feature.properties['Score'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Match_type'] !== null ? Autolinker.link(String(feature.properties['Match_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Match_addr'] !== null ? Autolinker.link(String(feature.properties['Match_addr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Side'] !== null ? Autolinker.link(String(feature.properties['Side'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ref_ID'] !== null ? Autolinker.link(String(feature.properties['Ref_ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['User_fld'] !== null ? Autolinker.link(String(feature.properties['User_fld'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Addr_type'] !== null ? Autolinker.link(String(feature.properties['Addr_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_Street'] !== null ? Autolinker.link(String(feature.properties['ARC_Street'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_City'] !== null ? Autolinker.link(String(feature.properties['ARC_City'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_State'] !== null ? Autolinker.link(String(feature.properties['ARC_State'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ARC_ZIP'] !== null ? Autolinker.link(String(feature.properties['ARC_ZIP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Type_Of_Ca</th>\
+                        <td>' + (feature.properties['Type_Of_Ca'] !== null ? Autolinker.link(String(feature.properties['Type_Of_Ca'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Business_N</th>\
+                        <td>' + (feature.properties['Business_N'] !== null ? Autolinker.link(String(feature.properties['Business_N'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Street_Add</th>\
+                        <td>' + (feature.properties['Street_Add'] !== null ? Autolinker.link(String(feature.properties['Street_Add'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">City</th>\
+                        <td>' + (feature.properties['City'] !== null ? Autolinker.link(String(feature.properties['City'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">State</th>\
+                        <td>' + (feature.properties['State'] !== null ? Autolinker.link(String(feature.properties['State'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Zip</th>\
+                        <td>' + (feature.properties['Zip'] !== null ? Autolinker.link(String(feature.properties['Zip'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Total_Lice</th>\
+                        <td>' + (feature.properties['Total_Lice'] !== null ? Autolinker.link(String(feature.properties['Total_Lice'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quality_In</th>\
+                        <td>' + (feature.properties['Quality_In'] !== null ? Autolinker.link(String(feature.properties['Quality_In'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Accreditat</th>\
+                        <td>' + (feature.properties['Accreditat'] !== null ? Autolinker.link(String(feature.properties['Accreditat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">F10</th>\
+                        <td>' + (feature.properties['F10'] !== null ? Autolinker.link(String(feature.properties['F10'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TypeBProviders_2_0() {
+            return {
+                pane: 'pane_TypeBProviders_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,158,23,1.0)',
+            }
+        }
+        map.createPane('pane_TypeBProviders_2');
+        map.getPane('pane_TypeBProviders_2').style.zIndex = 402;
+        map.getPane('pane_TypeBProviders_2').style['mix-blend-mode'] = 'normal';
+        var layer_TypeBProviders_2 = new L.geoJson(json_TypeBProviders_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_TypeBProviders_2',
+            onEachFeature: pop_TypeBProviders_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_TypeBProviders_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_TypeBProviders_2);
+        map.addLayer(layer_TypeBProviders_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/TypeBProviders_2.png" /> Type B Providers': layer_TypeBProviders_2,'Full Day Care Centers<br /><table><tr><td style="text-align: center;"><img src="legend/FullDayCareCenters_1_0520.png" /></td><td> 0 - 52 </td></tr><tr><td style="text-align: center;"><img src="legend/FullDayCareCenters_1_52861.png" /></td><td> 52 - 86 </td></tr><tr><td style="text-align: center;"><img src="legend/FullDayCareCenters_1_861312.png" /></td><td> 86 - 131 </td></tr><tr><td style="text-align: center;"><img src="legend/FullDayCareCenters_1_1312143.png" /></td><td> 131 - 214 </td></tr><tr><td style="text-align: center;"><img src="legend/FullDayCareCenters_1_2143724.png" /></td><td> 214 - 372 </td></tr></table>': layer_FullDayCareCenters_1,"OSM Standard": overlay_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
