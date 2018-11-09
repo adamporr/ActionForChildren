@@ -1,4 +1,4 @@
-var csv_FullDayCareCenters_1 = `name,address,city,state,zip,capacity,lng,lat
+name,address,city,state,zip,capacity,lng,lat
 Children First Inc,77 S High Street,Columbus,OH,43215,137,-83.00045846,39.96062566
 Columbus Early Learning Center - Eastside*,240 N. Champion Ave,Columbus,OH,43203,56,-82.9681672,39.97150396
 David's Preschool and Extended Care at UCC*,80 West Columbus Street,Canal Winchester,OH,43110,88,-82.8083239,39.84164997
@@ -472,4 +472,3 @@ Arlington Childrens Center*,1033 Old Henderson Rd,Columbus,OH,43220,134,-83.0476
 New Albany Christian Child Care,6000 Johnstown Road,New Albany,OH,43054,122,-82.81690366,40.07744903
 Brooksedge Day Care Center,2185 Hilliard-Rome Rd.,Hilliard,OH,43026,178,-83.15272369,39.99552082
 Kinder Care Learning Center*,139 North Stygler Road,Gahanna,OH,43230,81,-82.89048718,40.02122043
-`;

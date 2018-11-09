@@ -1,4 +1,4 @@
-var csv_TypeBProviders_2 = `address,city,state,zip,capacity,quality,accreditation,lng,lat
+address,city,state,zip,capacity,quality,accreditation,lng,lat
 1892 Ferntree Road,Columbus,OH,43219,6,,,-82.92114428,40.01017378
 4785 Scarlet St,Columbus,OH,43227,6,,,-82.86871545,39.94835434
 6292 Bannister Dr,Dublin,OH,43017,6,,,-83.09431558,40.08308111
@@ -278,4 +278,3 @@ var csv_TypeBProviders_2 = `address,city,state,zip,capacity,quality,accreditatio
 1052 Gary Dr,Columbus,OH,43207,6,,,-82.97019647,39.88579952
 2068 Avalon Place,Columbus,OH,43219,6,,,-82.94860178,39.98205333
 3264 Hilock Place,Columbus,OH,43207,6,One Star,,-82.97495912,39.89672028
-`
